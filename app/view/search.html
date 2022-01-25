@@ -100,7 +100,10 @@
             fetch(url + '?' + new URLSearchParams({
                 q: search,
             })).then(res => res.json()).then(res => {
-                if (res.code === 'SUCCESS' && res.response.length && res.response[0].results[0].work) return createTable(res.response[0].results[0].work.map(item => ({ author: item.best_book[0].author[0].name[0], title: item.best_book[0].title[0] })))
+                if (res.code === 'SUCCESS' && res.response.length && res.response[0].results[0].work){
+                    let result = res.response[0].results[0].work.map(item => ({ author: item.best_book[0].author[0].name[0], title: item.best_book[0].title[0] }))
+                    return createTable(result.slice(0, 10))
+                }
             })
         }
     </script>
