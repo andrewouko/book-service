@@ -3,11 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const InitControllers = require('./app/InitControllers');
 const logger = require('./services/logger');
+const cors = require('cors');
 
 var app = express();
 
 require('./middlewares')(app);
 app.use(bodyParser.json());
+app.use(cors());
+
 
 var _resolve;
 var readyPromise = new Promise((resolve) => {

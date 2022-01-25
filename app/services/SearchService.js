@@ -8,10 +8,10 @@ module.exports = class SearchService {
     this.configs = configs || config;
   }
 
-  search(bookName) {
+  search(query) {
     return new Promise((resolve, reject) => {
 
-        fetch(config.goodreads.base_url + config.goodreads.search_resource + bookName + '&key=bZFY4Rc5TZpBEc89fv7XKA', 
+        fetch(config.goodreads.base_url + config.goodreads.search_resource + query + '&key=bZFY4Rc5TZpBEc89fv7XKA', 
             { 
               method: 'GET', 
               headers: { 'Content-Type': 'application/json' }

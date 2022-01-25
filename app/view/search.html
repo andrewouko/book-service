@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <style>
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: inherit;
+        }
+
+        html {
+            font-size: 50%;
+        }
+
+        body {
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 25rem;
+            height: 100%;
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        h2 {
+            margin: 2rem;
+            font-size: 20px;
+        }
+
+        .searchbar {
+            font-size: 2.4rem;
+            width: 25rem;
+            height: 5rem;
+            border: none;
+            outline: none;
+            border-radius: 10rem;
+            padding: 2rem;
+            transition: all .1s;
+            transition-delay: .1s;
+        }
+
+        .searchbar:hover {
+            width: 27rem;
+            height: 6rem;
+        }
+
+        .button {
+            height: 2rem;
+            position: absolute;
+            top: 1.5rem;
+            right: -1rem;
+            transition: all .1s;
+            transition-delay: .1s;
+        }
+
+        .button:hover {
+            cursor: pointer;
+        }
+
+        .searchbar:hover+.button {
+            height: 2.5rem;
+            top: 1.8rem;
+            right: 0;
+        }
+
+        .searchbar::placeholder {
+            opacity: .3;
+        }
+    </style>
+    <script>
+        function createTable(tableData) {
+            var table = document.createElement('table');
+            var tableBody = document.createElement('tbody');
+
+            tableData.forEach(function (rowData) {
+                var row = document.createElement('tr');
+
+                Object.keys(rowData).forEach(function (col) {
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(rowData[col]));
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            table.appendChild(tableBody);
+            document.getElementById('table').innerHTML = ''
+            document.getElementById('table').appendChild(table);
+        }
+        function search() {
+            const search = document.querySelector(".searchbar").value;
+            console.log(search)
+            const url = 'http://localhost:8080/api/v1/search'
+            fetch(url + '?' + new URLSearchParams({
+                q: search,
+            })).then(res => res.json()).then(res => {
+                if (res.code === 'SUCCESS' && res.response.length && res.response[0].results[0].work) return createTable(res.response[0].results[0].work.map(item => ({ author: item.best_book[0].author[0].name[0], title: item.best_book[0].title[0] })))
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Search Books</h2>
+    <div class="container">
+        <input type="text" maxlength="50" placeholder="Search author, title..." class="searchbar" oninput="search()">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png" alt="search icon" class="button"
+            onclick="search()">
+        <div id="table"></div>
+    </div>
+</body>
+
+</html>

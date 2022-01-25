@@ -27,3 +27,29 @@ To fetch books in a ajax request.
 - Add a filter and sorting option to the search API request, those should be optional but should be validated, only valids filters or sorting should be sent
 - Add a new index.html page in the root of the project and create a basic layout with a search bar. The search should be asynchronous and the results should appear just bellow the search bar.
 - No need of fancy designs neither paging feature but limit to 10 results
+
+
+# Sort Functionality
+## Query formation
+1. The client must provide the sort query parameter AND at least one of the following query parameters: `q, title, author`.
+2. The sort parameter follows the comma separated format as follows: `field: sort_order[asc|desc], field2: sort_order[asc|desc]` . 
+
+## Sample call 
+`GET /api/v1/search?q=Dan Brown?sort=title:asc,author:desc` 
+
+## Expected Result on correct call
+The book results parameter of the response payload will be sorted according to the sorting query provided
+
+# Filter Functionality
+## Query formation
+1. The client must provide the either the `title` or the `author` query parameter or BOTH
+## Sample call 
+`GET /api/v1/search?author=dan franks` 
+
+## Expected Result on correct call
+The book results parameter of the response payload will be sorted according to the sorting query provided
+
+
+# HTML Search Form
+1. The html search form can be accessed on `GET /search`
+2. The file is set to query from the backend with the host being `http://localhost:8080` This means the port on the cofig must be set to 8080
