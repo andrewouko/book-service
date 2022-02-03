@@ -1,4 +1,4 @@
-## Jumia One - Book Service
+## Book Service
 
 Hello, I'm is a micro service in NodeJS.
 I'm able to look into Goodreads and fetch books. 
