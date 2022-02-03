@@ -1,3 +1,6 @@
+# About
+A simple microservice to showcase NodeJS microservice architecture and REST Searching and Filtering
+
 ## Book Service
 
 Hello, I'm is a micro service in NodeJS.
