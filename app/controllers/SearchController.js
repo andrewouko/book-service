@@ -142,7 +142,7 @@ module.exports = class SearchController extends BaseController {
             let result = await this.SearchService.search(req.query['q'] || req.query.title || req.query.author || '');
 
             if (req.query.sort) {
-                // result  = this.sortResults(req, result)
+                result  = this.sortResults(req, result)
             }
             if (req.query.author) {
                 result = this.filterResult(result, req)
